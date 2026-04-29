@@ -4,43 +4,266 @@
     <title>Aryan Verma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0f172a, #1e293b);
+            background-size: 400% 400%;
             color: white;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
         }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating background elements */
+        .bg-animation {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob1 {
+            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
+            top: -100px;
+            left: -100px;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob2 {
+            background: linear-gradient(45deg, #38bdf8, #6366f1);
+            bottom: -100px;
+            right: -100px;
+            animation: float 25s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -30px); }
+            66% { transform: translate(-30px, 30px); }
+        }
+
         header {
-            background: #1e293b;
-            padding: 20px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px 20px;
             text-align: center;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: slideDown 0.8s ease-out;
         }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9, #38bdf8);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 3s ease infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #cbd5e1;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         section {
-            padding: 40px;
+            padding: 40px 20px;
             max-width: 800px;
             margin: auto;
+            position: relative;
+            z-index: 1;
         }
-        h1, h2 {
+
+        h2 {
             color: #38bdf8;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
         }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+            animation: expandWidth 0.6s ease-out forwards;
+        }
+
+        @keyframes expandWidth {
+            to { width: 100%; }
+        }
+
         .card {
-            background: #1e293b;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
+            animation: slideUp 0.8s ease-out backwards;
+            position: relative;
+            overflow: hidden;
         }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover:before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.5);
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
+        }
+
         ul {
             padding-left: 20px;
         }
+
+        li {
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        li:before {
+            content: '▸ ';
+            color: #0ea5e9;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        li:hover {
+            transform: translateX(10px);
+            color: #38bdf8;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-info p {
+            transition: all 0.3s ease;
+        }
+
+        .contact-info p:hover {
+            transform: translateX(10px);
+            color: #0ea5e9;
+        }
+
         footer {
             text-align: center;
-            padding: 20px;
-            background: #1e293b;
-            margin-top: 30px;
+            padding: 30px 20px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            margin-top: 40px;
+            border-top: 2px solid rgba(56, 189, 248, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s ease-out 0.6s both;
+        }
+
+        footer p {
+            color: #94a3b8;
+            font-size: 0.95em;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- Animated background blobs -->
+<div class="blob1 bg-animation"></div>
+<div class="blob2 bg-animation"></div>
 
 <header>
     <h1>Aryan Verma</h1>
@@ -50,7 +273,7 @@
 <section>
     <div class="card">
         <h2>About Me</h2>
-        <p>I am Aryan Verma, currently pursuing B.Tech in Electronics and Communication Engineering. I am passionate about technology, CAD design, and Arduino-based projects.</p>
+        <p>I am Aryan Verma, currently pursuing B.Tech in Electronics and Communication Engineering. I am passionate about technology, CAD design, and Arduino-based projects. Always eager to learn and explore innovative solutions!</p>
     </div>
 
     <div class="card">
@@ -66,6 +289,8 @@
             <li>AutoCAD</li>
             <li>Arduino</li>
             <li>Basic Programming</li>
+            <li>Circuit Design</li>
+            <li>Electronics</li>
         </ul>
     </div>
 
@@ -79,26 +304,17 @@
 
     <div class="card">
         <h2>Contact</h2>
-        <p>Email: your@email.com</p>
+        <div class="contact-info">
+            <p>📧 Email: your@email.com</p>
+            <p>🔗 LinkedIn: linkedin.com/in/yourprofile</p>
+            <p>💻 GitHub: github.com/Aryan-X-plore</p>
+        </div>
     </div>
 </section>
 
 <footer>
-    <p>© 2026 Aryan Verma</p>
+    <p>© 2026 Aryan Verma | All rights reserved</p>
 </footer>
 
 </body>
 </html>
-<body>
-
-<header>
-    <h1>Aryan Verma</h1>
-</header>
-
-<p>Test update</p>  <!-- ✅ Add here -->
-
-<section>
-    ...
-</section>
-
-</body>
